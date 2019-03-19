@@ -13,7 +13,7 @@ use database_test;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---Create table Users
+-- Create table Users
 
 DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -26,7 +26,7 @@ CREATE TABLE `Users` (
 	) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---Add data to table Users
+-- Add data to table Users
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
 INSERT INTO `Users` VALUES (1,'TestUser1', '123'),(2,'TestUser2','123'),(3,'TestUser3','123');
@@ -34,7 +34,7 @@ INSERT INTO `Users` VALUES (1,'TestUser1', '123'),(2,'TestUser2','123'),(3,'Test
 UNLOCK TABLES;
 
 
---Create table Tags
+-- Create table Tags
 DROP TABLE IF EXISTS `Tags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -45,7 +45,7 @@ CREATE TABLE `Tags` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---add data to table Tags
+-- add data to table Tags
 LOCK TABLES `Tags` WRITE;
 /*!40000 ALTER TABLE `Tags` DISABLE KEYS */;
 INSERT INTO `Tags` VALUES (1,'test'),(2,'vacation'),(3,'job'),(4,'home');
@@ -53,31 +53,51 @@ INSERT INTO `Tags` VALUES (1,'test'),(2,'vacation'),(3,'job'),(4,'home');
 UNLOCK TABLES;
 
 
---Create table Notes
+-- Create table Notes
 DROP TABLE IF EXISTS `Notes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Notes` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`name` varchar(45) NOT NULL,
-	 `createDate` DATE NOT NULL,
+	 `noteDate` DATE NOT NULL,
  	`userID` int(10) unsigned NOT NULL,
  	`tagID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
     KEY `FK_Users` (`userID`),
     KEY `FK_Tags` (`tagID`),
   CONSTRAINT `FK_Users` FOREIGN KEY (`userID`) REFERENCES `Users` (`id`),
-  CONSTRAINT `FK_Tags` FOREIGN KEY (`tagID`) REFERENCES `Tags` (`id`),
+  CONSTRAINT `FK_Tags` FOREIGN KEY (`tagID`) REFERENCES `Tags` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---Add data to table Notes
+-- Add data to table Notes
 LOCK TABLES `Notes` WRITE;
 /*!40000 ALTER TABLE `Notes` DISABLE KEYS */;
 INSERT INTO `Notes` VALUES (1,'first note','2008-7-04',1,1),(2,'second note','2010-2-01',2,2),(3,'third note','2012-8-05',3,3);
 /*!40000 ALTER TABLE `Notes` ENABLE KEYS */;
 UNLOCK TABLES;
 
+-- Create table NotesTexts
+DROP TABLE IF EXISTS `NotesTexts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `NotesTexts` (
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`notesID` int(10) unsigned NOT NULL,
+    `text` mediumblob,
+  PRIMARY KEY (`id`),
+    KEY `FK_Notes` (`notesID`),
+  CONSTRAINT `FK_Notes` FOREIGN KEY (`notesID`) REFERENCES `Notes` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- Add data to table NotesTexts
+LOCK TABLES `NotesTexts` WRITE;
+/*!40000 ALTER TABLE `NotesTexts` DISABLE KEYS */;
+INSERT INTO `NotesTexts` VALUES (1,1,'Lot of very interesting infomration can be stored here'),(2,2,'Here is also lot of very interesting information stored'),(3,3,'Just another text entered');
+/*!40000 ALTER TABLE `NotesTexts` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
