@@ -7,3 +7,5 @@ logs/**
 target/**
 wbp-meta/**
 .DS_Store
+/target/
+/bin/
