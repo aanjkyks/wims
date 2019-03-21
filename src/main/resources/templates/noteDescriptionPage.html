@@ -1,50 +1,96 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style type="text/css">
+body {background: #ccdaea !important;}
+</style>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 
-    <title>Note description</title>
+<title>Note description</title>
 </head>
 
 <body>
-<!--<table>-->
-    <!--<tbody>-->
-    <!--<tr th:="note: ${notes}">-->
-        <!--<td th:text="${note.name}"></td>-->
-        <!--<td th:text="${note.date}"></td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
-<!--</table>-->
-<div th:each="foobar: ${fields}">
-    <h1 th:text="${foobar}"></h1>
-</div>
-<h1 align="center">Blablablablabla (Name of the note)</h1>
-<div class="container">
+	<!--<table>-->
+	<!--<tbody>-->
+	<!--<tr th:="note: ${notes}">-->
+	<!--<td th:text="${note.name}"></td>-->
+	<!--<td th:text="${note.date}"></td>-->
+	<!--</tr>-->
+	<!--</tbody>-->
+	<!--</table>-->
 
-    <div class="row">
-        <div>Date:</div>
-        <div>blablablabla (date entered/saved by user)</div>
-    </div>
 
-    <div class="row">
-        <div>Description:</div>
-        <div>blablablabla (description entered/saved by user)</div>
-    </div>
-    <div class="row">
-        <div>Tag:</div>
-        <div>blablablabla (tag entered/saved by user)</div>
-    </div>
 
-    <div class="row">
-        <button>Edit</button>
-        <button>Back</button>
-    </div>
-</div>
+	<h1 align="center">This is Name of the note</h1>
+
+
+	<div class="container">
+
+		<!--should be like this: 
+		 <table>
+			<tbody>
+				<tr th:="note: ${notes}">
+					<td th:text="${note.name}"></td>
+					<td th:text="${note.date}"></td>
+				</tr>
+			</tbody>
+
+		</table> -->
+
+
+
+		<div class="form-group">
+			<!-- this row changed, remove, if doesnot work together with closing tag-->
+
+			<h4>Date:</h4>
+			<div>this is date entered/saved by user</div>
+
+		</div>
+
+		<div class="form-group">
+			<h4>Description:</h4>
+			<div>this is description entered/saved by user</div>
+		</div>
+		<div class="form-group">
+			<h4>Tag:</h4>
+			<div>this is tag entered/saved by user</div>
+		</div>
+
+		<div class="row">
+			
+			<!-- onclick="window.location.href='/editNotePageHTML'" -->
+			<form action="/edit">
+			<button class="btn btn-secondary">Edit</button>
+			</form>
+				
+	
+			<!-- <form action="/insideTagPageHTML.html"> -->
+			<button class="btn btn-light" onclick="goBack()">Back</button>
+			<script>
+				function goBack() {
+					window.history.back();
+				}
+			</script>
+		</div>
+	</div>
+
+
+
+	<!-- <h1>first list</h1>
+	<div th:each="aa: ${fields}">
+		<div th:text="${aa}"></div>
+	</div> -->
+
+
 
 </body>
 

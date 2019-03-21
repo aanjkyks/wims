@@ -1,19 +1,44 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<style type="text/css">
+body {
+	background: #ccdaea !important;
+}
+</style>
 <head>
-    <title>Spring Security Example </title>
+<title>Spring Security Example</title>
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+	<h1>Welcome!</h1>
+	<div>Please enter your username and password below</div>
+	<br>
+	<div th:if="${param.error}" class="text-danger">
+		Invalid username and password.<br>
+	</div>
+
+	<div th:if="${param.logout}">You have been logged out.</div>
+	<form th:action="@{/login}" method="post">
+
+		<div class="form-group">
+			<label> Username: <input type="text" name="username" />
+
+			</label>
+			<div>
+				<label> Password: <input type="password" name="password" />
+				</label>
+			</div>
+			<br>
+			<div>
+				<input type="submit" value="Sign In" />
+			</div>
+			<br> <br> <br>
+			<div>Not yet registered? Please follow below link for
+				registration</div>
+			<div>
+				<input type="submit" value="Registration" />
+			</div>
+		</div>
+	</form>
 </body>
 </html>

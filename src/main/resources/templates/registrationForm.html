@@ -17,31 +17,34 @@ body {
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 
-<title>Add Note Page</title>
+<title>Registration form</title>
 </head>
 
 <body>
-	<h1 align="center">Add new note</h1>
+	<h1 align="center">Registration form</h1>
 	
 		<div class="container">
 			<form>
+			
 				<div class="form-group">
-					<h4>Date:</h4>
-					<input id="date" type="date" size="80" required>
-				</div>
-				<div class="form-group">
-					<h4>Name:</h4>
+					<h4>Username:</h4>
 					<input id="name" type="text" size="80" required>
+          <div>Please note that min length is 5 digits, max length is 10 digits</div>
 				</div>
 				<div class="form-group">
-					<h4>Tags:</h4>
+					<h4>Password:</h4>
+					<input id="tags" type="text" size="80" required>
+          <div>Please note that min length is 5 digits</div>
+				</div>
+				<div class="form-group">
+					<h4>Confirm password:</h4>
 					<input id="tags" type="text" size="80" required>
 				</div>
-				<div class="form-group">
-					<h4>Content:</h4>
-					<textarea id="content" name="" rows="4" cols="80"></textarea>
+        <div class="form-group">
+					<h4>Email address:</h4>
+					<input id="tags" type="email" size="80" required>
 				</div>
-			</form>
+        <br>
 			<div class="row">
 				<div class="form-group">
 					<button type="button" class="btn btn-primary">Save</button>
@@ -51,10 +54,12 @@ body {
 							window.history.back();
 						}
 					</script>
+   
 				</div>
+        <br>
 			</div>
 		</div>
-	
+	</form>
 </body>
 
 </html>
