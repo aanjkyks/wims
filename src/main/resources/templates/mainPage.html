@@ -1,83 +1,103 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <style type="text/css">
-body {background: #ccdaea !important;}
+body {
+	background: #ccdaea !important;
+}
 </style>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 
-    <title>Main Page HTML</title>
+<title>Main Page HTML</title>
 </head>
 
 <body>
-<h1 th:text="${name}"></h1>
-<div class="container px-lg-5">
+	<br>
+	<br>
+	<br>
+	<br>
+	<h3 align="center">Please enter your request below</h3>
+	<br>
+	<div align="center">
+		<input type="search" placeholder="Search.." size="100">
+		<button type="button" class="btn btn-dark">Search</button>
+	</div>
+	<div class="container px-lg-5" align="center">
 
-    <div class="row mx-lg-n5">
-        <input type="search" placeholder="Search.." size="100">
-        <button>Search</button>
-    </div>
-    <div class="row align-items-end, example-content-main">
-        <div class="col-sm">
-            <a href="url"> +Add new note </a>
+		<div class="row align-items-end, example-content-main">
+			<div class="col-md">
+				<a href="/add"> +Add new note </a>
+			</div>
 
+		</div>
+		<br> <br> <br> 
+		<div class="row align-items-end, example-content-main">
+			<div class="col-sm">
+				<form action="/inside">
+					<button class="btn btn-outline-primary btn-lg">tag1(if
+						exists)</button>
+				</form>
 
-        </div>
-        <div class="col-sm">
-        </div>
-    </div>
-    <div class="row align-items-end, example-content-main">
-        <div class="col-sm">
-            <a href="link to tag1 page">
-                <img src="blue-square-clipart-1.jpg.png" alt="Tag1" class="img-thumbnail">
-            </a>
-        </div>
-        <div class="col-md">
-            <a href="link to tag2 page">
-                <img src="blue-square-clipart-1.jpg.png" alt="Tag2" class="img-thumbnail">
-            </a>
-        </div>
-        <div class="col-md">
-            <a href="link to tag3 page">
-                <img src="blue-square-clipart-1.jpg.png" alt="Tag3" class="img-thumbnail">
-            </a>
-        </div>
-        <div class="col-md">
-            <a href="link to tag4 page">
-                <img src="blue-square-clipart-1.jpg.png" alt="Tag4" class="img-thumbnail">
-            </a>
-        </div>
+			</div>
+			<div class="col-md">
+				<form action="/inside">
+					<button class="btn btn-outline-primary btn-lg">tag2(if
+						exists)</button>
+				</form>
+			</div>
+			<div class="col-md">
+				<form action="/inside">
+					<button class="btn btn-outline-primary btn-lg">tag3(if
+						exists)</button>
+				</form>
+			</div>
+			<div class="col-md">
+				<form action="/inside">
+					<button class="btn btn-outline-primary btn-lg">tag4(if
+						exists)</button>
+				</form>
+			</div>
 
-    </div>
-    <div class="row align-items-end, example-content-main">
-        <div class="col-md">
-            <a href="link to tag1 page">
-                <img src="blue-square-clipart-1.jpg.png" alt="Tag1" class="img-thumbnail">
-            </a>
-        </div>
-        <div class="col-md">
-            <a href="link to tag2 page">
-                <img src="blue-square-clipart-1.jpg.png" alt="Tag2" class="img-thumbnail">
-            </a>
-        </div>
-        <div class="col-md">
-            <a href="link to tag3 page">
-                <img src="blue-square-clipart-1.jpg.png" alt="Tag3" class="img-thumbnail">
-            </a>
-        </div>
-        <div class="col-md">
-            <a href="link to tag4 page">
-                <img src="blue-square-clipart-1.jpg.png" alt="Tag4" class="img-thumbnail">
-            </a>
-        </div>
+		</div>
+		<br>
+		<div class="row align-items-end, example-content-main">
+			<div class="col-md">
+				<form action="/inside">
+					<button class="btn btn-outline-primary btn-lg">tag5(if
+						exists)</button>
+				</form>
+			</div>
+			<div class="col-md">
+				<form action="/inside">
+					<button class="btn btn-outline-primary btn-lg">tag6(if
+						exists)</button>
+				</form>
+			</div>
+			<div class="col-md">
+				<form action="/inside">
+					<button class="btn btn-outline-primary btn-lg">tag7(if
+						exists)</button>
+				</form>
+			</div>
+			<div class="col-md">
+				<form action="/inside">
+					<button class="btn btn-outline-primary btn-lg">tag1(if
+						exists)</button>
+				</form>
+			</div>
 
-    </div>
-</div>
+		</div>
+	</div>
+	<div class="container"></div>
 </body>
 
 </html>
