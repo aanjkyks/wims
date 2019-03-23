@@ -27,19 +27,25 @@
 
     <form method="POST" th:action="@{/add_save}" th:object="${note}">
         <div class="form-group col-lg-10">
-            <label for="input-1">Note date</label><input th:field="*{date}" type="text" id="input-1" class="form-control">
+            <label for="input-1">*Note date</label><input th:field="*{date}" type="text" id="input-1" class="form-control">
         </div>
-        <div class="form-group">
-            <label for="input-2">Name</label><input th:field="*{name}" type="text" id="input-2" class="form-control">
+        <div class="form-group col-lg-10">
+            <label for="input-2">*Name</label><input th:field="*{name}" type="text" id="input-2" class="form-control">
         </div>
-        <div class="form-group">
-            <label for="input-3">Tags</label><input th:field="*{tags}" type="text" id="input-3" class="form-control">
+        <div class="form-group col-lg-10">
+            <label for="input-3">*Tags</label><input th:field="*{tags}" type="text" id="input-3" class="form-control">
         </div>
-        <div class="form-group">
+        <div class="form-group col-lg-10">
             <label for="input-4">Description</label><textarea th:field="*{description}" id="input-4" class="form-control"></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group col-lg-10">
             <button class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-light" onclick="goBack()">Cancel</button>
+				<script>
+					function goBack() {
+						window.history.back();
+					}
+				</script>
         </div>
     </form>
 </div>
