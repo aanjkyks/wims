@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class SaveButtonController {
 	// Note note = new Note(111122);
 
-//	@RequestMapping(value = "/save", method = RequestMethod.GET)
-//	public boolean updateNote() {
-//		return false;
-//	}
+	@RequestMapping(value = "/save", method = RequestMethod.GET)
+	public boolean updateNote() {
+		System.out.println("hello");
+		return false;
+	}
 	// note.updateNote();
 
 }
