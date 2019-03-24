@@ -49,7 +49,7 @@ CREATE TABLE `Tags` (
 # --add data to table Tags
 LOCK TABLES `Tags` WRITE;
 /*!40000 ALTER TABLE `Tags` DISABLE KEYS */;
-INSERT INTO `Tags` VALUES (1,'test'),(2,'vacation'),(3,'job'),(4,'home');
+#INSERT INTO `Tags` VALUES (1,'test'),(2,'vacation'),(3,'job'),(4,'home');
 /*!40000 ALTER TABLE `Tags` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,7 +76,7 @@ CREATE TABLE `Notes` (
 # --Add data to table Notes
 LOCK TABLES `Notes` WRITE;
 /*!40000 ALTER TABLE `Notes` DISABLE KEYS */;
-INSERT INTO `Notes` VALUES (1,'first note','2008-7-04',1,1),(2,'second note','2010-2-01',2,2),(3,'third note','2012-8-05',3,3);
+#INSERT INTO `Notes` VALUES (1,'first note','2008-7-04',1,1),(2,'second note','2010-2-01',2,2),(3,'third note','2012-8-05',3,3);
 /*!40000 ALTER TABLE `Notes` ENABLE KEYS */;
 UNLOCK TABLES;
 
