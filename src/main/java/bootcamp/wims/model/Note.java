@@ -2,23 +2,29 @@ package bootcamp.wims.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 @Entity
+@Indexed
 @Table(name = "Notes")
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @Field
     private String name;
     @Column(name = "noteDate")
+    @Field
     public Date noteDate;
     @Column(name = "userID")
     private Integer userID;
+    @Field
     private String text;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "tagID")
+    @Field
     private Tag tag;
 
     public void setTag(Tag tag) {

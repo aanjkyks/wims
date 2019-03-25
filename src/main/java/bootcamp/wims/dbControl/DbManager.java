@@ -5,14 +5,52 @@ import bootcamp.wims.model.Tag;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
+
+
 @Service
-public class DbManager {
+public class DbManager {	
+	public List<Note> searchNote(String searchTerm) {
+		EntityManager entityManager = PersistenceManager.INSTANCE.getEntityManager(); 
+		
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+		
+		QueryBuilder qb = fullTextEntityManager
+							.getSearchFactory()
+							.buildQueryBuilder()
+							.forEntity(Note.class)
+							.get();
+
+		org.apache.lucene.search.Query luceneQuery = qb
+								.keyword()
+								.fuzzy()
+								.withEditDistanceUpTo(1)
+								.withPrefixLength(1)
+								.onFields("name")
+								.matching(searchTerm)
+								.createQuery();
+
+        javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Note.class);
+		List<Note> notes = null;
+		
+        try {
+            notes = jpaQuery.getResultList();
+        } catch (NoResultException nre) {
+
+        }
+
+        return notes;
+	}
+
 
 	public Note selectNoteByID(Integer userID, Integer id) {
 		EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
@@ -89,41 +127,6 @@ public class DbManager {
 		}
 		return status;
 	}
-
-
-//	public boolean updateNote(Note oldNote, String newNoteName, Date newNoteDate, String newText, String newTagName) {
-//		EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-//		try {
-//			boolean status;
-//			Query q;
-//			int st;
-//			int tagID = oldNote.getTagID();
-//			String oldTagName = findTagByID(oldNote.getTagID()).getName();
-//			if(!oldTagName.equals(newTagName)) {
-//				createTag(newTagName);
-//				tagID = findTagByName(newTagName).getId();
-//			}
-//			em.getTransaction().begin();
-//			q = em.createNativeQuery("UPDATE Notes SET name = ?, noteDate = ?, tagID = ?, text = ? where id = ?");
-//			q.setParameter(1, newNoteName);
-//			q.setParameter(2, newNoteDate);
-//			q.setParameter(3, tagID);
-//			q.setParameter(4, newText);
-//			q.setParameter(5, oldNote.getId());
-//			st = q.executeUpdate();
-//			if(st == 1) {
-//				status = true;
-//				em.getTransaction().commit();
-//			} else {
-//				status = false;
-//				em.getTransaction().rollback();
-//			}
-//			return status;
-//		} catch(Exception e) {
-//			return false;
-//		}
-//	}
-
 	public boolean insertNote(Integer userID, String noteName, Date noteDate, String text, String tagName) {
 		EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
 		try {
