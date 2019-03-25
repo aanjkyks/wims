@@ -80,7 +80,7 @@ public class EditNotePageController {
         if (savedNote != null) {
             return "redirect:/edit/" + savedNote.getId();
         } else {
-            return "redirect:/add?error";
+        	return "redirect:/add?error";
         }
     }
 

@@ -22,7 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and().formLogin().loginPage("/login").permitAll()
-                .and().logout().permitAll();
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/welcome").permitAll(); //added .logoutUrl("/logout").logoutSuccessUrl("/login");
+       
+        
     }
 
     @Qualifier("userDetailsServiceImpl")

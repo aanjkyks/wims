@@ -21,6 +21,9 @@ body {
 </head>
 
 <body>
+	<div class="float-right">
+		<a th:href="@{/welcome}" class="btn btn-secondary">Logout</a>
+	</div>
 	<br>
 	<br>
 	<br>
@@ -36,67 +39,57 @@ body {
 			</div>
 			<div class="col-sm"></div>
 		</div>
-		<br>
-		<br>
-		<div class="row mx-lg-n5">
-			<h1>Blablabla (user's tag's name)</h1>
-		</div>
-		<div class="row align-items-end, example-content-main">
-			<div class="col-sm">1. Blablablabla (note's year)</div>
-			<div class="col-sm">Blablablabla (note's description)</div>
-			<div class="col-sm">
-				<a href="/edit">Edit</a>
-			</div>
-			<div class="col-sm">
-				<a href="url">Remove</a>
-			</div>
-		</div>
-
-		<div class="row align-items-end, example-content-main">
-			<div class="col-sm">2. Blablablabla (note's year)</div>
-			<div class="col-sm">Blablablabla (note's description)</div>
-			<div class="col-sm">
-				<a href="/edit">Edit</a>
-			</div>
-			<div class="col-sm">
-				<a href="url">Remove</a>
-			</div>
-		</div>
-		<div class="row align-items-end, example-content-main">
-			<div class="col-sm">3. Blablablabla (note's year)</div>
-			<div class="col-sm">Blablablabla (note's description)</div>
-			<div class="col-sm">
-				<a href="/edit">Edit</a>
-			</div>
-			<div class="col-sm">
-				<a href="url">Remove</a>
-			</div>
-		</div>
-		<div class="row align-items-end, example-content-main">
-			<div class="col-sm">4. Blablablabla (note's year)</div>
-			<div class="col-sm">Blablablabla (note's description)</div>
-			<div class="col-sm">
-				<a href="/edit">Edit</a>
-			</div>
-			<div class="col-sm">
-				<a href="url">Remove</a>
-			</div>
-		</div>
-		<div class="row align-items-end, example-content-main">
-			<div class="col-sm">5. Blablablabla (note's year)</div>
-			<div class="col-sm">Blablablabla (note's description)</div>
-			<div class="col-sm">
-				<a href="/edit">Edit</a>
-			</div>
-			<div class="col-sm">
-				<a href="url">Remove</a>
-			</div>
-		</div>
+		<br> <br>
 	</div>
 
-	</div>
 
+
+	<!--<div class="row mx-lg-n5">
+		<h1 th:each="tag: ${tags}"></h1>
+	</div>  -->
+	<!-- <div class="row mx-lg-n5">
+		<h1 th:text="${tag.name}"></h1>
+	</div> -->
+	<div align="center">
+		<h1>These are all notes related to tag: "TAG'S NAME"</h1>
 	</div>
+	
+	<table class="table">
+		<thead>
+			<tr>
+				<td>Note date (yyyy-MM-dd):</td>
+				<td>Note name:</td>
+				<td>Tags:</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="note: ${notes}">
+				<td th:text="${#dates.format(note.date, 'yyyy-MM-dd')}"></td>
+				<td><a th:href="@{'/edit/'+ ${note.id}}" th:text="${note.name}"></a></td>
+				<!--<td th:text="note.text"></td>-->
+				<td><span class="badge badge-primary"
+					th:text="${note.tag.name}"></span></td>
+				<td><a class="delete-button"
+					th:href="@{/delete_note(noteId=${note.id})}"> <i
+						class="fas fa-trash-alt"></i>
+				</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- 	<div style="border-top: 1px solid black; margin-top: 30px;">
+		<span class="badge badge-primary" th:each="tag : ${tags}"
+			th:text="${tag.name}"></span>
+	</div> -->
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+
+
+
 </body>
 
 </html>
