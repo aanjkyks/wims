@@ -25,13 +25,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class MainPageController {
     private final UserRepository userRepository;
     private final NoteRepository noteRepository;
-    private final TagRepository tagRepository;
 
     @Autowired
-    public MainPageController(UserRepository userRepository, NoteRepository noteRepository, TagRepository tagRepository) {
+    public MainPageController(UserRepository userRepository, NoteRepository noteRepository) {
         this.userRepository = userRepository;
         this.noteRepository = noteRepository;
-        this.tagRepository = tagRepository;
     }
 
     @RequestMapping(value = "/", method = GET)
@@ -46,7 +44,7 @@ public class MainPageController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("userId", user.getId());
 
-        List<Note> notes = noteRepository.findAllByUserIDAndNameContainingOrTextContaining(user.getId(), search, search);//List<Note> notes = noteRepository.findAllByUserID(user.getId());
+        List<Note> notes = noteRepository.findAllByUserIDAndNameContainingOrTextContaining(user.getId(), search);//List<Note> notes = noteRepository.findAllByUserID(user.getId());
 
         Set<String> tagNames = new HashSet<>();
         for(Note note: notes) {
