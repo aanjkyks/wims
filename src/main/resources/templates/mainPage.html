@@ -3,25 +3,10 @@
 <head th:replace="fragments/head :: head"></head>
 
 <body>
-<div th:insert="fragments/navbar"></div>
-<!--<h3 style="margin-top: 10px;" align="center">Please enter your-->
-<!--request below</h3>-->
-<!--<div align="center">-->
-<!--<form method="GET" th:action="@{/}">-->
-<!--<input type="search" name="search" placeholder="Search.." size="100">-->
-<!--<button type="submit" class="btn btn-dark">Search</button>-->
-<!--&lt;!&ndash;  type submit or button is needed? &ndash;&gt;-->
-<!--</form>-->
-
-<!--</div>-->
-<div class="container px-lg-5" align="center">
-
-    <div class="row align-items-end, example-content-main">
-        <div class="col-md">
-            <a href="/add"> +Add new note </a>
-        </div>
-
-    </div>
+<div th:replace="fragments/navbar :: navbar(navbarSearch=${mainPageSearch})"></div>
+<div class="container px-lg-5 py-lg-2" align="center">
+    <div class="alert alert-success" id="alert-message" th:unless="${message ==''}" th:text="${message}"></div>
+    <h2>Notes</h2>
     <table class="table">
         <thead>
         <tr>
@@ -37,8 +22,9 @@
             <td><a th:href="@{'/edit/'+ ${note.id}}"
                    th:text="${note.name}"></a></td>
             <!--<td th:text="note.text"></td>-->
-            <td><a href="/inside"><span class="badge badge-primary"
-                                        th:text="${note.tag.name}"></span></a></td>
+            <td><a href="/inside" th:href="@{'/inside/' + ${note.tag.name}}"><span class="badge badge-primary"
+                                                                                   th:text="${note.tag.name}"></span></a>
+            </td>
             <td><a class="delete-button"
                    th:href="@{/delete_note(noteId=${note.id})}"> <i
                     class="fas fa-trash-alt"></i>
@@ -47,12 +33,12 @@
         </tbody>
     </table>
 
-
-    <h1 style="border-top: 1px solid black; margin-top: 30px;">
-        <a th:each="tag : ${tags}" th:href="@{'/inside/' + ${tag.name}}"><span class="badge badge-primary"
-                                                                               th:text="${tag.name}"></span></a>
-    </h1>
-
+    <div th:if="${mainPageSearch == ''}">
+        <h2>Tags</h2>
+        <a class="mx-lg-2" th:each="tag : ${tags}" th:href="@{'/inside/' + ${tag}}"><span
+                class="badge badge-primary"
+                th:text="${tag}"></span></a>
+    </div>
 </div>
 <script>
     (function () {
@@ -69,6 +55,10 @@
                             }
                         });
             })
+        setTimeout(function () {
+
+            document.getElementById('alert-message').style.display = 'none';
+        }, 2000);
     })()
 </script>
 </body>

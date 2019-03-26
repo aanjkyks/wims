@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.security.Principal;
-import java.util.List;
 
+import java.security.Principal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toSet;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
@@ -32,7 +35,7 @@ public class MainPageController {
     }
 
     @RequestMapping(value = "/", method = GET)
-    public String homePage(@RequestParam(value = "search", required = false, defaultValue = "") String search, Principal principal, Authentication authentication, Model model) {//public String homePage(Principal principal, Authentication authentication, Model model) { 
+    public String homePage(@RequestParam(value = "search", required = false, defaultValue = "") String search, @RequestParam(value = "message", required = false, defaultValue = "") String message, Principal principal, Authentication authentication, Model model) {//public String homePage(Principal principal, Authentication authentication, Model model) {
         System.out.println(principal);
         if (principal == null) {
             System.out.println(authentication);
@@ -42,17 +45,24 @@ public class MainPageController {
         User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("userId", user.getId());
-        
-        List<Note> notes = noteRepository.findAllByUserIDAndNameContainingOrTextContaining(user.getId(), search, search);//List<Note> notes = noteRepository.findAllByUserID(user.getId()); 
-        List<Tag> tags = tagRepository.findByUserID(user.getId());
-        
-       
+
+        List<Note> notes = noteRepository.findAllByUserIDAndNameContainingOrTextContaining(user.getId(), search, search);//List<Note> notes = noteRepository.findAllByUserID(user.getId());
+
+        Set<String> tagNames = new HashSet<>();
+        for(Note note: notes) {
+            tagNames.add(note.getTag().getName());
+        }
+
+
+
+
+        model.addAttribute("mainPageSearch", search);
+        model.addAttribute("message", message);
         model.addAttribute("notes", notes);
-        model.addAttribute("tags", tags);
+        model.addAttribute("tags", tagNames);
         return "mainPage";
     }
-    
-    
+
 
     // /delete_note?noteId=123333
     @RequestMapping(value = "/delete_note", method = GET)

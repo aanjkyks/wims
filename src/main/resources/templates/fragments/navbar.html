@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav th:fragment="navbar (navbarSearch)" class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="#">WIMS</a>
 
     <ul class="navbar-nav mr-auto">
@@ -10,7 +10,7 @@
         </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" action="/">
-        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" type="search" th:value="${navbarSearch}" name="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
     </form>
     <ul class="navbar-nav">

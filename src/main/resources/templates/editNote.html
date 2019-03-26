@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head"></head>
 
 <body>
-<div th:insert="fragments/navbar"></div>
+<div th:replace="fragments/navbar :: navbar('')"></div>
 <div class="container">
     <h1 align="center">Add/Edit note</h1>
     <form method="POST" th:action="${savePath}" th:object="${editNote}">

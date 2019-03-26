@@ -77,7 +77,7 @@ public class EditNotePageController {
         System.out.println(savedNote);
 
         if (savedNote != null) {
-            return "redirect:/edit/" + savedNote.getId();
+            return "redirect:/?message=note+saved";
         } else {
             return "redirect:/add?error";
         }
