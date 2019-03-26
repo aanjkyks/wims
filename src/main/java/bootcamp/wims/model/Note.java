@@ -2,8 +2,13 @@ package bootcamp.wims.model;
 
 import javax.persistence.*;
 import java.util.Date;
+
+import com.sun.org.apache.xpath.internal.operations.Equals;
 import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
+//import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 
 @Entity
 @Indexed
@@ -12,19 +17,16 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Field
+	@FullTextField(analyzer = "myAnalyzer")
     private String name;
     @Column(name = "noteDate")
-    @Field
     public Date noteDate;
     @Column(name = "userID")
     private Integer userID;
-    @Field
     private String text;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "tagID")
-    @Field
     private Tag tag;
 
     public void setTag(Tag tag) {
@@ -36,6 +38,11 @@ public class Note {
     }
 
     public Note() {
+//    	id = 100;
+//		name = "noteName";
+//		noteDate = new Date();
+//		userID = 1;
+//		text = "textfield what does it mean ?";
     }
 
     public Note(Integer id, String name, Date noteDate, Integer userID, Tag tag, String text) {
@@ -82,7 +89,7 @@ public class Note {
         this.userID = userID;
         return this;
     }
-
+    @Field
     public String getText() {
         return text;
     }

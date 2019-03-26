@@ -52,6 +52,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate.search</groupId>
+			<artifactId>hibernate-search-mapper-orm</artifactId>
+			<version>6.0.0.Alpha3</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
@@ -78,14 +83,14 @@
 			<artifactId>hibernate-search-orm</artifactId>
 			<version>5.11.1.Final</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate.search/hibernate-search-backend-lucene -->
-<dependency>
-    <groupId>org.hibernate.search</groupId>
-    <artifactId>hibernate-search-backend-lucene</artifactId>
-    <version>6.0.0.Alpha3</version>
-</dependency>
-		
+		<dependency>
+			<groupId>org.hibernate.search</groupId>
+			<artifactId>hibernate-search-backend-lucene</artifactId>
+			<version>6.0.0.Alpha3</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

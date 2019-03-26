@@ -1,8 +1,10 @@
 package bootcamp.wims.model;
 
 import javax.persistence.*;
-
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 @Entity
+@Indexed
 @Table(name = "Tags")
 public class Tag {
     @Id
@@ -37,7 +39,7 @@ public class Tag {
         this.id = id;
         return this;
     }
-
+    @FullTextField(analyzer = "myAnalyzer")
     public String getName() {
         return name;
     }
