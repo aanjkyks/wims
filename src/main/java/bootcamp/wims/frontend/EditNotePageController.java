@@ -9,10 +9,7 @@ import bootcamp.wims.model.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.text.ParseException;
@@ -49,8 +46,9 @@ public class EditNotePageController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addNewNote(Model model) {
+    public String addNewNote(@RequestParam(value = "tag", required = false, defaultValue = "") String tag, Model model) {
         EditNoteModel emptyModel = new EditNoteModel();
+        emptyModel.setTags(tag);
         return editNote(emptyModel, model);
     }
 
@@ -66,12 +64,13 @@ public class EditNotePageController {
         System.out.println(note);
 
         User user = userRepository.findByUsername(principal.getName());
-        Tag existingTag = tagRepository.findByNameAndUserID(note.getTags(), user.getId());
-        if (existingTag != null) {
-            System.out.println("found existing tag");
-        } else {
-            existingTag = new Tag(null, user.getId(), note.getTags());
-        }
+//        Tag existingTag = tagRepository.findByNameAndUserID(note.getTags(), user.getId());
+//        if (existingTag != null) {
+//            System.out.println("found existing tag");
+//        } else {
+//        }
+
+        Tag existingTag = new Tag(null, user.getId(), note.getTags());
 
         Note newNote = new Note(note.isNew() ? null : note.getId(), note.getName(), dateFormatter.parse(note.getDate()), user.getId(), existingTag, note.getDescription());
         Note savedNote = noteRepository.save(newNote);
@@ -80,7 +79,7 @@ public class EditNotePageController {
         if (savedNote != null) {
             return "redirect:/edit/" + savedNote.getId();
         } else {
-        	return "redirect:/add?error";
+            return "redirect:/add?error";
         }
     }
 

@@ -3,88 +3,74 @@
 <head th:replace="fragments/head :: head"></head>
 
 <body>
-	<div class="float-right">
-		<a th:href="@{/logout}" class="btn btn-secondary">Logout</a>
-	</div>
+<div th:insert="fragments/navbar"></div>
+<!--<h3 style="margin-top: 10px;" align="center">Please enter your-->
+<!--request below</h3>-->
+<!--<div align="center">-->
+<!--<form method="GET" th:action="@{/}">-->
+<!--<input type="search" name="search" placeholder="Search.." size="100">-->
+<!--<button type="submit" class="btn btn-dark">Search</button>-->
+<!--&lt;!&ndash;  type submit or button is needed? &ndash;&gt;-->
+<!--</form>-->
 
-	<h1 th:text="${username}"></h1>
-	<h1 th:text="${userId}"></h1>
-	<h3 style="margin-top: 10px;" align="center">Please enter your
-		request below</h3>
-	<div align="center">
-		<form method="GET" th:action="@{/}">
-			<input type="search" name="search" placeholder="Search.." size="100">
-			<button type="submit" class="btn btn-dark">Search</button>
-			<!--  type submit or button is needed? -->
-		</form>
+<!--</div>-->
+<div class="container px-lg-5" align="center">
 
-	</div>
-	<div class="container px-lg-5" align="center">
+    <div class="row align-items-end, example-content-main">
+        <div class="col-md">
+            <a href="/add"> +Add new note </a>
+        </div>
 
-		<div class="row align-items-end, example-content-main">
-			<div class="col-md">
-				<a href="/add"> +Add new note </a>
-			</div>
-
-		</div>
-		<table class="table">
-			<thead>
-				<tr>
-					<td>Date (yyyy-MM-dd):</td>
-					<td>Name:</td>
-					<td>Tags:</td>
-					<td></td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="note: ${notes}">
-					<td th:text="${#dates.format(note.date, 'yyyy-MM-dd')}"></td>
-					<td><a th:href="@{'/edit/'+ ${note.id}}"
-						th:text="${note.name}"></a></td>
-					<!--<td th:text="note.text"></td>-->
-					<td><a href="/inside"><span class="badge badge-primary"
-							th:text="${note.tag.name}"></span></a></td>
-					<td><a class="delete-button"
-						th:href="@{/delete_note(noteId=${note.id})}"> <i
-							class="fas fa-trash-alt"></i>
-					</a></td>
-				</tr>
-			</tbody>
-		</table>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Date (yyyy-MM-dd):</td>
+            <td>Name:</td>
+            <td>Tags:</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="note: ${notes}">
+            <td th:text="${#dates.format(note.date, 'yyyy-MM-dd')}"></td>
+            <td><a th:href="@{'/edit/'+ ${note.id}}"
+                   th:text="${note.name}"></a></td>
+            <!--<td th:text="note.text"></td>-->
+            <td><a href="/inside"><span class="badge badge-primary"
+                                        th:text="${note.tag.name}"></span></a></td>
+            <td><a class="delete-button"
+                   th:href="@{/delete_note(noteId=${note.id})}"> <i
+                    class="fas fa-trash-alt"></i>
+            </a></td>
+        </tr>
+        </tbody>
+    </table>
 
 
-		<h1 style="border-top: 1px solid black; margin-top: 30px;">
-			<a href="/inside"><span class="badge badge-primary"
-				th:each="tag : ${tags}" th:text="${tag.name}"></span></a>
-		</h1>
+    <h1 style="border-top: 1px solid black; margin-top: 30px;">
+        <a th:each="tag : ${tags}" th:href="@{'/inside/' + ${tag.name}}"><span class="badge badge-primary"
+                                                                               th:text="${tag.name}"></span></a>
+    </h1>
 
-
-
-
-		<!-- <div th:each="tag : ${tags}"> -->
-			<div th:text="${tag.name}">
-				<button type="button" class="badge badge-light"></button>
-			</div>
-		<!-- </div> -->
-
-	</div>
-	<script>
-		(function() {
-			var elements = Array.from(document
-					.querySelectorAll('.delete-button'));
-			elements
-					.forEach(function(element) {
-						element
-								.addEventListener(
-										'click',
-										function(event) {
-											if (!confirm("Are you sure you want to delete this note?")) {
-												event.preventDefault();
-											}
-										});
-					})
-		})()
-	</script>
+</div>
+<script>
+    (function () {
+        var elements = Array.from(document
+            .querySelectorAll('.delete-button'));
+        elements
+            .forEach(function (element) {
+                element
+                    .addEventListener(
+                        'click',
+                        function (event) {
+                            if (!confirm("Are you sure you want to delete this note?")) {
+                                event.preventDefault();
+                            }
+                        });
+            })
+    })()
+</script>
 </body>
 
 </html>

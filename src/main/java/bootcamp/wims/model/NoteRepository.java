@@ -14,4 +14,5 @@ public interface NoteRepository extends CrudRepository<Note, Integer> {
 
 	@Transactional
 	Integer deleteByIdAndUserID(Integer id, Integer userID);
+	List<Note> findAllByUserIDAndTagName(Integer userId, String tagName);
 }
