@@ -1,0 +1,13 @@
+.classpath
+**/.~lock*
+*.log
+logs/**
+.project
+.settings/**
+target/**
+wbp-meta/**
+.DS_Store
+/target/
+/bin/
+.idea/
+*.iml

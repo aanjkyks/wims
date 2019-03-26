@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style type="text/css">
+body {
+	background: #ccdaea !important;
+}
+</style>
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<title>Add Note Page</title>
+</head>
+
+<body>
+	<h1 align="center">Add new note</h1>
+
+	<div class="container">
+		<form>
+			<div class="form-group">
+				<h4>*Date:</h4>
+				<input id="date" type="date" size="80" required>
+			</div>
+			<div class="form-group">
+				<h4>*Name:</h4>
+				<input id="name" type="text" size="80"
+					placeholder="enter a name of your note" name="name" required>
+			</div>
+			<div class="form-group">
+				<h4>*Tag:</h4>
+				<!-- list: Specifies the id of a <datalist> element which provides a list of autocomplete suggestions for the input field.
+
+Read more: https://html.com/input-type-submit/#ixzz5iuKqBSo6
+				 -->
+				<input id="tag" type="text" size="80" name="tag"
+					placeholder="enter tag for your note" required>
+			</div>
+			<div class="form-group">
+				<h4>Description:</h4>
+				<textarea id="description" rows="4" cols="80" name="description"
+					placeholder="enter a description here"></textarea>
+			</div>
+		</form>
+		<div class="row">
+			<div class="form-group">
+			
+			
+					<input type="submit" name="save" id="save-post"
+						value="save your changes" class="btn btn-primary">
+				
+				
+				<button type="button" class="btn btn-light" onclick="goBack()">Cancel</button>
+				<script>
+					function goBack() {
+						window.history.back();
+					}
+				</script>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
