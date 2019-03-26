@@ -1,6 +1,10 @@
 package bootcamp.wims.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
+//import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 
 @Entity
 @Table(name = "Tags")
@@ -8,11 +12,22 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    //@FullTextField(analyzer = "myAnalyzer")
     private String name;
     private Integer userID;
+    
+    @OneToMany(mappedBy = "tag")
+    private Set<Note> notes = new HashSet<Note>();
+    
+    public Set<Note> getNotes() {
+		return notes;
+	}
 
-    public Integer getUserID() {
+	public void setNotes(Set<Note> notes) {
+		this.notes = notes;
+	}
+
+	public Integer getUserID() {
         return userID;
     }
 

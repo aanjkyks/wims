@@ -1,58 +1,80 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <style type="text/css">
-    body {
-        background: #ccdaea !important;
-    }
+body {
+	background: #ccdaea !important;
+}
 </style>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 
-    <title>Registration form</title>
+<title>Registration form</title>
 </head>
 
 <body>
-<h1 align="center">Registration form</h1>
+	<h1 align="center">Registration form</h1>
 
-<div class="container">
-    <form th:action="@{/registration}" method="post" th:object="${user}">
+	<div class="container">
+		<form th:action="@{/registration}" method="post" th:object="${user}">
 
-        <div class="form-group">
-            <h4>*Username:</h4>
-            <input class="form-control" th:field="*{username}" id="username" type="text" size="80" required>
-            <div>Please note that min length is 5 digits, max length is 10 digits</div>
-        </div>
-        <div class="form-group">
-            <h4>*Password:</h4>
-            <input class="form-control" id="password" th:field="*{password}" type="text" size="80" required>
-            <div>Please note that min length is 5 digits</div>
-        </div>
-        <div class="form-group">
-            <h4>*Confirm password:</h4>
-            <input id="password-confirm" class="form-control" type="text" size="80" th:field="*{passwordConfirm}" required>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-light" onclick="goBack()">Cancel</button>
-            </div>
-        </div>
-    </form>
-</div>
-<script>
-  function goBack() {
-    window.history.back()
-  }
-</script>
+			<p class="error-message" th:if="${#fields.hasGlobalErrors()}"
+				th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
+				error</p>
+
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('username')}? 'has-error':''">
+                    <label for="username" class="control-label"><h4>Username</h4></label>
+                    <input id="username"
+                           class="form-control"
+                           th:field="*{username}"/>
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('username')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+                    <label for="password" class="control-label"><h4>Password</h4></label>
+                    <input id="password"
+                           class="form-control"
+                           type="password"
+                           th:field="*{password}"/>
+                    <p class="error-message"
+                       th:each="error : ${#fields.errors('password')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">
+                    <label for="passwordConfirm" class="control-label"><h4>Confirm password</h4></label>
+                    <input id="passwordConfirm"
+                           class="form-control"
+                           type="password"
+                           th:field="*{passwordConfirm}"/>
+                    <p class="error-message"
+                       th:each="error : ${#fields.errors('passwordConfirm')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+			<div class="row">
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Save</button>
+					<button type="button" class="btn btn-light" onclick="goBack()">Cancel</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+		function goBack() {
+			window.history.back()
+		}
+	</script>
 </body>
 
 </html>
