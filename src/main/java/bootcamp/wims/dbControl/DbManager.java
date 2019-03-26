@@ -5,7 +5,9 @@ import bootcamp.wims.model.Tag;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,11 +20,13 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 
 
 @Service
-public class DbManager {	
+public class DbManager {
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("note");
+	public static  EntityManager getEntityManager(){
+		return emf.createEntityManager();
+	}
 	public List<Note> searchNote(String searchTerm) {
-		EntityManager entityManager = PersistenceManager.INSTANCE.getEntityManager(); 
-		
-		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(getEntityManager());
 		
 		QueryBuilder qb = fullTextEntityManager
 							.getSearchFactory()

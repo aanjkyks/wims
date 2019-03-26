@@ -27,6 +27,7 @@ public class Note {
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "tagID")
+    @IndexedEmbedded
     private Tag tag;
 
     public void setTag(Tag tag) {
