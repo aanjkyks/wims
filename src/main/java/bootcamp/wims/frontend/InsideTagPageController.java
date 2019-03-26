@@ -37,16 +37,6 @@ public class InsideTagPageController {
 		this.tagRepository = tagRepository;
 	}
 
-	// @RequestMapping(value = "/inside", method = RequestMethod.GET)
-	// public String homePage(@RequestParam(value = "name", required = false)
-	// String name, HttpServletRequest request,
-	// HttpServletResponse response, Model model) {
-	// return "insideTagPageHTML";
-	// }
-
-	// List<Tag> allNotesByTags =
-	// tagRepository.findByUserID(userRepository.findAllById(user.getID()));
-
 	@RequestMapping(value = "/inside", method = GET)
 	public String homePage(Principal principal, Authentication authentication, Model model) {
 		System.out.println(principal);

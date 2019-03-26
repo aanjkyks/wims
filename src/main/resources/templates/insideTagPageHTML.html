@@ -22,7 +22,7 @@ body {
 
 <body>
 	<div class="float-right">
-		<a th:href="@{/welcome}" class="btn btn-secondary">Logout</a>
+		<a th:href="@{/logout}" class="btn btn-secondary">Logout</a>
 	</div>
 	<br>
 	<br>
@@ -37,12 +37,14 @@ body {
 			<div class="col-sm">
 				<a href="/add"> +Add new note </a>
 			</div>
-			<div class="col-sm"></div>
+
 		</div>
 		<br> <br>
 	</div>
-
-
+	<div align="center" class="container px-lg-5">
+		<h1>!!! 11 These are all notes related to tag "TAG'S NAME"</h1>
+		<h2 th:text="${note.tag.name}"></h2>
+	</div>
 
 	<!--<div class="row mx-lg-n5">
 		<h1 th:each="tag: ${tags}"></h1>
@@ -50,10 +52,7 @@ body {
 	<!-- <div class="row mx-lg-n5">
 		<h1 th:text="${tag.name}"></h1>
 	</div> -->
-	<div align="center">
-		<h1>These are all notes related to tag: "TAG'S NAME"</h1>
-	</div>
-	
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -68,8 +67,6 @@ body {
 				<td th:text="${#dates.format(note.date, 'yyyy-MM-dd')}"></td>
 				<td><a th:href="@{'/edit/'+ ${note.id}}" th:text="${note.name}"></a></td>
 				<!--<td th:text="note.text"></td>-->
-				<td><span class="badge badge-primary"
-					th:text="${note.tag.name}"></span></td>
 				<td><a class="delete-button"
 					th:href="@{/delete_note(noteId=${note.id})}"> <i
 						class="fas fa-trash-alt"></i>
@@ -79,17 +76,7 @@ body {
 	</table>
 	<!-- 	<div style="border-top: 1px solid black; margin-top: 30px;">
 		<span class="badge badge-primary" th:each="tag : ${tags}"
-			th:text="${tag.name}"></span>
-	</div> -->
-
-
-	<br>
-	<br>
-	<br>
-	<br>
-
-
-
+			th:text="${tag.name}"></span></div> -->
 </body>
 
 </html>
