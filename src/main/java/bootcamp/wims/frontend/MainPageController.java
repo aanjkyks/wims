@@ -45,6 +45,7 @@ public class MainPageController {
         
         List<Note> notes = noteRepository.findAllByUserIDAndNameContainingOrTextContaining(user.getId(), search, search);//List<Note> notes = noteRepository.findAllByUserID(user.getId()); 
         List<Tag> tags = tagRepository.findByUserID(user.getId());
+        
        
         model.addAttribute("notes", notes);
         model.addAttribute("tags", tags);
