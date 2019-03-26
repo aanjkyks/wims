@@ -18,69 +18,83 @@ import java.util.Optional;
 
 @Controller
 public class EditNotePageController {
-    private final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-    private final NoteRepository noteRepository;
-    private final UserRepository userRepository;
-    private final TagRepository tagRepository;
+	private final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+	private final NoteRepository noteRepository;
+	private final UserRepository userRepository;
+	private final TagRepository tagRepository;
 
-    @Autowired
-    public EditNotePageController(NoteRepository notesRepository, UserRepository userRepository, TagRepository tagRepository) {
-        this.noteRepository = notesRepository;
-        this.userRepository = userRepository;
-        this.tagRepository = tagRepository;
-    }
+	@Autowired
+	public EditNotePageController(NoteRepository notesRepository, UserRepository userRepository,
+			TagRepository tagRepository) {
+		this.noteRepository = notesRepository;
+		this.userRepository = userRepository;
+		this.tagRepository = tagRepository;
+	}
 
-    @RequestMapping(value = "/edit/{noteId:[\\d]+}", method = RequestMethod.GET)
-    public String ModelAndView(@PathVariable int noteId, Model model) {
-        Optional<Note> noteOptional = noteRepository.findById(noteId);
+	@RequestMapping(value = "/edit/{noteId:[\\d]+}", method = RequestMethod.GET)
+	public String ModelAndView(@PathVariable int noteId,
+			@RequestParam(value = "error", required = false, defaultValue = "") String error, Model model) {
+		Optional<Note> noteOptional = noteRepository.findById(noteId);
 
-        if (noteOptional.isPresent()) {
-            Note note = noteOptional.get();
-            System.out.println(note);
-            EditNoteModel noteModel = new EditNoteModel(note.getId(), note.getDate(), note.getName(), note.getTag().getName(), note.getText());
-            model.addAttribute("editNote", noteModel);
-            return editNote(noteModel, model);
-        } else {
-            return "redirect:/404";
-        }
-    }
+		if (noteOptional.isPresent()) {
+			Note note = noteOptional.get();
+			System.out.println(note);
+			EditNoteModel noteModel = new EditNoteModel(note.getId(), note.getDate(), note.getName(),
+					note.getTag().getName(), note.getText());
+			model.addAttribute("editNote", noteModel);
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addNewNote(@RequestParam(value = "tag", required = false, defaultValue = "") String tag, Model model) {
-        EditNoteModel emptyModel = new EditNoteModel();
-        emptyModel.setTags(tag);
-        return editNote(emptyModel, model);
-    }
+			return editNote(noteModel, model, error);
+		} else {
+			return "redirect:/404";
+		}
+	}
 
-    private String editNote(EditNoteModel note, Model model) {
-        model.addAttribute("editNote", note);
-        model.addAttribute("savePath", "/save_note");
-        return "editNote";
-    }
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String addNewNote(@RequestParam(value = "tag", required = false, defaultValue = "") String tag,
+			@RequestParam(value = "error", required = false, defaultValue = "") String error, Model model) {
+		EditNoteModel emptyModel = new EditNoteModel();
+		emptyModel.setTags(tag);
+		return editNote(emptyModel, model, error);
+	}
 
+	private String editNote(EditNoteModel note, Model model, String error) {
+		model.addAttribute("editNote", note);
+		model.addAttribute("savePath", "/save_note");
+		model.addAttribute("error", error);
+		return "editNote";
+	}
 
-    @RequestMapping(value = "/save_note", method = RequestMethod.POST)
-    public String saveNote(@ModelAttribute("note") EditNoteModel note, Principal principal, Model model) throws ParseException {
-        System.out.println(note);
+	@RequestMapping(value = "/save_note", method = RequestMethod.POST)
+	public String saveNote(@ModelAttribute("note") EditNoteModel note, Principal principal, Model model)
+			throws ParseException {
+		System.out.println(note);
 
-        User user = userRepository.findByUsername(principal.getName());
+		User user = userRepository.findByUsername(principal.getName());
 //        Tag existingTag = tagRepository.findByNameAndUserID(note.getTags(), user.getId());
 //        if (existingTag != null) {
 //            System.out.println("found existing tag");
 //        } else {
 //        }
+		try {
+			Tag existingTag = new Tag(null, user.getId(), note.getTags());
 
-        Tag existingTag = new Tag(null, user.getId(), note.getTags());
+			Note newNote = new Note(note.isNew() ? null : note.getId(), note.getName(),
+					dateFormatter.parse(note.getDate()), user.getId(), existingTag, note.getDescription());
+			Note savedNote = noteRepository.save(newNote);
+			System.out.println(savedNote);
 
-        Note newNote = new Note(note.isNew() ? null : note.getId(), note.getName(), dateFormatter.parse(note.getDate()), user.getId(), existingTag, note.getDescription());
-        Note savedNote = noteRepository.save(newNote);
-        System.out.println(savedNote);
+			if (savedNote != null) {
+				return "redirect:/?message=note+saved";
+			} else {
+				return "redirect:/add?error";
+			}
 
-        if (savedNote != null) {
-            return "redirect:/?message=note+saved";
-        } else {
-            return "redirect:/add?error";
-        }
-    }
-
+		} catch (Exception e) {
+			if (note.isNew()) {
+				return "redirect:/add?error=error+creating+new+note";
+			} else {
+				return "redirect:/edit/" + note.getId() + "?error=error+updating+note";
+			}
+		}
+	}
 }

@@ -18,7 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		 http.authorizeRequests().antMatchers("/", "/welcome", "/registration", "/404")
+		 http.authorizeRequests().antMatchers("/welcome", "/registration", "/404")
 		.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/welcome")
 		.deleteCookies("JSESSIONID").invalidateHttpSession(true);
