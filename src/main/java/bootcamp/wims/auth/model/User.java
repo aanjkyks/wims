@@ -16,8 +16,8 @@ public class User {
 	@Transient
 	private String passwordConfirm;
 
-	//	@Transient
-	//	private Set<Role> roles = Collections.singleton("foobar");
+	// @Transient
+	// private Set<Role> roles = Collections.singleton("foobar");
 
 	public Integer getId() {
 		return id;
@@ -51,11 +51,11 @@ public class User {
 		this.passwordConfirm = passwordConfirm;
 	}
 
-	//	public Set<Role> getRoles() {
-	//		return roles;
-	//	}
+	// public Set<Role> getRoles() {
+	// return roles;
+	// }
 	//
-	//	public void setRoles(Set<Role> roles) {
-	//		this.roles = roles;
-	//	}
+	// public void setRoles(Set<Role> roles) {
+	// this.roles = roles;
+	// }
 }

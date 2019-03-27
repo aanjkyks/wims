@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <style type="text/css">
-body {background: #ccdaea !important;}
+body {
+	background: #ccdaea !important;
+}
 </style>
 <head>
 <!-- Required meta tags -->
@@ -19,7 +21,7 @@ body {background: #ccdaea !important;}
 </head>
 
 <body>
-<div class="float-right">
+	<div class="float-right">
 		<a th:href="@{/logout}" class="btn btn-secondary">Logout</a>
 	</div>
 	<!--<table>-->
@@ -31,34 +33,14 @@ body {background: #ccdaea !important;}
 	<!--</tbody>-->
 	<!--</table>-->
 
-
-
 	<h1 align="center">This is Name of the note</h1>
 
 
 	<div class="container">
-
-		<!--should be like this: 
-		 <table>
-			<tbody>
-				<tr th:="note: ${notes}">
-					<td th:text="${note.name}"></td>
-					<td th:text="${note.date}"></td>
-				</tr>
-			</tbody>
-
-		</table> -->
-
-
-
 		<div class="form-group">
-			<!-- this row changed, remove, if doesnot work together with closing tag-->
-
 			<h4>Date:</h4>
 			<div>this is date entered/saved by user</div>
-
 		</div>
-
 		<div class="form-group">
 			<h4>Description:</h4>
 			<div>this is description entered/saved by user</div>
@@ -69,13 +51,11 @@ body {background: #ccdaea !important;}
 		</div>
 
 		<div class="row">
-			
 			<!-- onclick="window.location.href='/editNotePageHTML'" -->
 			<form action="/edit">
-			<button class="btn btn-secondary">Edit</button>
+				<button class="btn btn-secondary">Edit</button>
 			</form>
-				
-	
+
 			<!-- <form action="/insideTagPageHTML.html"> -->
 			<button class="btn btn-light" onclick="goBack()">Back</button>
 			<script>
@@ -85,16 +65,6 @@ body {background: #ccdaea !important;}
 			</script>
 		</div>
 	</div>
-
-
-
-	<!-- <h1>first list</h1>
-	<div th:each="aa: ${fields}">
-		<div th:text="${aa}"></div>
-	</div> -->
-
-
-
 </body>
 
 </html>

@@ -70,11 +70,6 @@ public class EditNotePageController {
 		System.out.println(note);
 
 		User user = userRepository.findByUsername(principal.getName());
-//        Tag existingTag = tagRepository.findByNameAndUserID(note.getTags(), user.getId());
-//        if (existingTag != null) {
-//            System.out.println("found existing tag");
-//        } else {
-//        }
 		try {
 			Tag existingTag = new Tag(null, user.getId(), note.getTags());
 

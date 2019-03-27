@@ -18,14 +18,15 @@ public enum PersistenceManager {
 	}
 
 	public EntityManager getEntityManager() {
-		if(manager == null) manager = emFactory.createEntityManager();
+		if (manager == null)
+			manager = emFactory.createEntityManager();
 		return manager;
 
 	}
 
 	public void close() {
 
-//		emFactory.close();
+		// emFactory.close();
 
 	}
 

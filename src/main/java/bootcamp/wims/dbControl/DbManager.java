@@ -22,7 +22,7 @@ public class DbManager {
 			q.setParameter(2, userID);
 			Note note = (Note) q.getSingleResult();
 			return note;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return new Note();
 		}
 	}
@@ -38,7 +38,7 @@ public class DbManager {
 			q.setParameter(2, tag.getId());
 			noteList = q.getResultList();
 			return noteList;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return noteList;
 		}
 	}
@@ -47,13 +47,12 @@ public class DbManager {
 		List<String[]> strList = new ArrayList<String[]>();
 		EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
 		try {
-			Query q =
-					em.createNativeQuery("select DISTINCT(t.name), count(n.tagID) from database_test.Notes as n, " +
-							"database_test.Tags as t where n.userID = ? and t.id = n.tagID group by n.tagID");
+			Query q = em.createNativeQuery("select DISTINCT(t.name), count(n.tagID) from database_test.Notes as n, "
+					+ "database_test.Tags as t where n.userID = ? and t.id = n.tagID group by n.tagID");
 			q.setParameter(1, userID);
 			List<Object[]> obj = q.getResultList();
 			Iterator it = obj.iterator();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				Object[] line = (Object[]) it.next();
 				String[] strArray = new String[2];
 				strArray[0] = line[0].toString();
@@ -61,7 +60,7 @@ public class DbManager {
 				strList.add(strArray);
 			}
 			return strList;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return strList;
 		}
 	}
@@ -77,66 +76,71 @@ public class DbManager {
 			q.setParameter(1, noteID);
 			q.setParameter(2, userID);
 			st = q.executeUpdate();
-			if(st == 1) {
+			if (st == 1) {
 				status = true;
 				em.getTransaction().commit();
 			} else {
 				status = false;
 				em.getTransaction().rollback();
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 		return status;
 	}
 
-
-//	public boolean updateNote(Note oldNote, String newNoteName, Date newNoteDate, String newText, String newTagName) {
-//		EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-//		try {
-//			boolean status;
-//			Query q;
-//			int st;
-//			int tagID = oldNote.getTagID();
-//			String oldTagName = findTagByID(oldNote.getTagID()).getName();
-//			if(!oldTagName.equals(newTagName)) {
-//				createTag(newTagName);
-//				tagID = findTagByName(newTagName).getId();
-//			}
-//			em.getTransaction().begin();
-//			q = em.createNativeQuery("UPDATE Notes SET name = ?, noteDate = ?, tagID = ?, text = ? where id = ?");
-//			q.setParameter(1, newNoteName);
-//			q.setParameter(2, newNoteDate);
-//			q.setParameter(3, tagID);
-//			q.setParameter(4, newText);
-//			q.setParameter(5, oldNote.getId());
-//			st = q.executeUpdate();
-//			if(st == 1) {
-//				status = true;
-//				em.getTransaction().commit();
-//			} else {
-//				status = false;
-//				em.getTransaction().rollback();
-//			}
-//			return status;
-//		} catch(Exception e) {
-//			return false;
-//		}
-//	}
+	// public boolean updateNote(Note oldNote, String newNoteName, Date
+	// newNoteDate, String newText, String newTagName) {
+	// EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+	// try {
+	// boolean status;
+	// Query q;
+	// int st;
+	// int tagID = oldNote.getTagID();
+	// String oldTagName = findTagByID(oldNote.getTagID()).getName();
+	// if(!oldTagName.equals(newTagName)) {
+	// createTag(newTagName);
+	// tagID = findTagByName(newTagName).getId();
+	// }
+	// em.getTransaction().begin();
+	// q = em.createNativeQuery("UPDATE Notes SET name = ?, noteDate = ?, tagID
+	// = ?, text = ? where id = ?");
+	// q.setParameter(1, newNoteName);
+	// q.setParameter(2, newNoteDate);
+	// q.setParameter(3, tagID);
+	// q.setParameter(4, newText);
+	// q.setParameter(5, oldNote.getId());
+	// st = q.executeUpdate();
+	// if(st == 1) {
+	// status = true;
+	// em.getTransaction().commit();
+	// } else {
+	// status = false;
+	// em.getTransaction().rollback();
+	// }
+	// return status;
+	// } catch(Exception e) {
+	// return false;
+	// }
+	// }
 
 	public boolean insertNote(Integer userID, String noteName, Date noteDate, String text, String tagName) {
 		EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
 		try {
 			Tag tag = findTagByName(tagName);
-			if(tag.getName() == null) {
+			if (tag.getName() == null) {
 				boolean tempStatus = createTag(tagName);
-				if(tempStatus) tag = findTagByName(tagName);
-				else return false;
+				if (tempStatus)
+					tag = findTagByName(tagName);
+				else
+					return false;
 			}
 			boolean status = createNote(noteName, noteDate, userID, tag.getId(), text);
-			if(status) return true;
-			else return false;
-		} catch(Exception e) {
+			if (status)
+				return true;
+			else
+				return false;
+		} catch (Exception e) {
 			return false;
 		}
 	}
@@ -149,7 +153,7 @@ public class DbManager {
 			q.setParameter(1, tagName);
 			tag = (Tag) q.getSingleResult();
 			return tag;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return new Tag();
 		}
 	}
@@ -162,7 +166,7 @@ public class DbManager {
 			Query q = em.createNativeQuery("INSERT INTO Tags (name) VALUES (?) ");
 			q.setParameter(1, tagName);
 			int st = q.executeUpdate();
-			if(st == 1) {
+			if (st == 1) {
 				status = true;
 				em.getTransaction().commit();
 			} else {
@@ -170,7 +174,7 @@ public class DbManager {
 				em.getTransaction().rollback();
 			}
 			return status;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
@@ -187,7 +191,7 @@ public class DbManager {
 			q.setParameter(4, tagID);
 			q.setParameter(5, text);
 			int st = q.executeUpdate();
-			if(st == 1) {
+			if (st == 1) {
 				status = true;
 				em.getTransaction().commit();
 			} else {
@@ -195,7 +199,7 @@ public class DbManager {
 				em.getTransaction().rollback();
 			}
 			return status;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
@@ -209,7 +213,7 @@ public class DbManager {
 			q.setParameter(1, tagName);
 			q.setParameter(2, id);
 			int st = q.executeUpdate();
-			if(st == 1) {
+			if (st == 1) {
 				status = true;
 				em.getTransaction().commit();
 			} else {
@@ -217,7 +221,7 @@ public class DbManager {
 				em.getTransaction().rollback();
 			}
 			return status;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
@@ -230,7 +234,7 @@ public class DbManager {
 			q.setParameter(1, id);
 			tag = (Tag) q.getSingleResult();
 			return tag;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return new Tag();
 		}
 	}

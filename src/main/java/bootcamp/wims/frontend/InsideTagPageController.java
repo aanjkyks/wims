@@ -19,29 +19,29 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 public class InsideTagPageController {
-    private final UserRepository userRepository;
-    private final NoteRepository noteRepository;
-    private final TagRepository tagRepository;
+	private final UserRepository userRepository;
+	private final NoteRepository noteRepository;
+	private final TagRepository tagRepository;
 
-    @Autowired
-    public InsideTagPageController(UserRepository userRepository, NoteRepository noteRepository,
-                                   TagRepository tagRepository) {
-        this.userRepository = userRepository;
-        this.noteRepository = noteRepository;
-        this.tagRepository = tagRepository;
-    }
+	@Autowired
+	public InsideTagPageController(UserRepository userRepository, NoteRepository noteRepository,
+			TagRepository tagRepository) {
+		this.userRepository = userRepository;
+		this.noteRepository = noteRepository;
+		this.tagRepository = tagRepository;
+	}
 
-    @RequestMapping(value = "/inside/{tagName}", method = GET)
-    public String insideTagPage(@PathVariable("tagName") String tagName, Principal principal, Model model) {
-        User user = userRepository.findByUsername(principal.getName());
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("userId", user.getId());
+	@RequestMapping(value = "/inside/{tagName}", method = GET)
+	public String insideTagPage(@PathVariable("tagName") String tagName, Principal principal, Model model) {
+		User user = userRepository.findByUsername(principal.getName());
+		model.addAttribute("username", user.getUsername());
+		model.addAttribute("userId", user.getId());
 
-        List<Note> notes = noteRepository.findAllByUserIDAndTagName(user.getId(), tagName);
-        Tag tags = tagRepository.findFirstByUserIDAndName(user.getId(), tagName);
+		List<Note> notes = noteRepository.findAllByUserIDAndTagName(user.getId(), tagName);
+		Tag tags = tagRepository.findFirstByUserIDAndName(user.getId(), tagName);
 
-        model.addAttribute("notes", notes);
-        model.addAttribute("tag", tags);
-        return "insideTagPageHTML";
-    }
+		model.addAttribute("notes", notes);
+		model.addAttribute("tag", tags);
+		return "insideTagPageHTML";
+	}
 }
