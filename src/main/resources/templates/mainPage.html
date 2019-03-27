@@ -7,15 +7,14 @@
 		th:replace="fragments/navbar :: navbar(navbarSearch=${mainPageSearch})"></div>
 	<div class="container px-lg-5 py-lg-2" align="center">
 		<div class="alert alert-success" id="alert-message"
-			th:unless="${message ==''}" th:text="${message}"></div>
-		<h2>Notes</h2>
+			th:unless="${message ==''}" th:text="${message}"></div><br>
+		<h2 class="border border-primary">Notes</h2>
 		<table class="table">
 			<thead>
 				<tr>
-					<td>Date (yyyy-MM-dd):</td>
-					<td>Name:</td>
-					<td>Tags:</td>
-					<td></td>
+					<td><strong>Date:</strong></td>
+					<td><strong>Name:</strong></td>
+					<td><strong>Tags:</strong></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,7 +35,7 @@
 		</table>
 
 		<div th:if="${mainPageSearch == ''}">
-			<h2>Tags</h2>
+			<h4 class="border-top">Tags</h4>
 			<a class="mx-lg-2" th:each="tag : ${tags}"
 				th:href="@{'/inside/' + ${tag}}"><span
 				class="badge badge-primary" th:text="${tag}"></span></a>
