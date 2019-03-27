@@ -31,16 +31,16 @@ public class RegistrationFormController {
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-		userValidator.validate(userForm, bindingResult);
+	public String registration(@ModelAttribute("user") User user, BindingResult bindingResult) {
+		userValidator.validate(user, bindingResult);
 
 		if(bindingResult.hasErrors()) {
 			return "registrationForm";
 		}
 
-		userService.save(userForm);
+		userService.save(user);
 
-		securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+		securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
 
 		return "redirect:/";
 	}
