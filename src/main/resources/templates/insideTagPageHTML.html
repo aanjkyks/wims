@@ -9,22 +9,20 @@ body {
 <body>
 	<div th:replace="fragments/navbar :: navbar('')"></div>
 	<div class="container px-lg-5">
-		<div class="row align-items-end, example-content-main">
-			<div class="col-sm">
-				<a th:href="@{/add(tag=${tag.name})}"> +Add new note </a>
-			</div>
-
+		<br>
+		<div>
+			<a th:href="@{/add(tag=${tag.name})}"> +Add new note related to this tag </a>
 		</div>
 	</div>
 	<div class="px-lg-5">
-		<h1 th:text="${tag.name}"></h1>
+		<h1 th:text="${tag.name}" class="border border-primary" align="center"></h1>
 
 		<table class="table">
 			<thead>
 				<tr>
-					<td>Note date (yyyy-MM-dd):</td>
-					<td>Note name:</td>
-					<td>Description:</td>
+					<td><strong>Note date:</strong></td>
+					<td><strong>Note name:</strong></td>
+					<td><strong>Description:</strong></td>
 					<td></td>
 				</tr>
 			</thead>
