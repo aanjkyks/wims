@@ -67,5 +67,10 @@ public class MainPageController {
 		noteRepository.deleteByIdAndUserID(noteId, user.getId());
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value = "/error", method = GET)
+	public String errorMessage(){
+		return "redirect:/error";
+	}
 
 }

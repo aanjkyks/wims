@@ -1,5 +1,7 @@
 package bootcamp.wims.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,9 @@ public class Tag {
 	private String name;
 	private Integer userID;
 
+	@OneToMany(mappedBy = "tag")
+	private Set<Note> notes;
+	
 	public Integer getUserID() {
 		return userID;
 	}
@@ -45,6 +50,14 @@ public class Tag {
 	public Tag setName(String name) {
 		this.name = name;
 		return this;
+	}
+
+	public Set<Note> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(Set<Note> notes) {
+		this.notes = notes;
 	}
 
 	@Override

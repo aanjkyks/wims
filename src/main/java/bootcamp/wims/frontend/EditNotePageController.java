@@ -71,10 +71,12 @@ public class EditNotePageController {
 
 		User user = userRepository.findByUsername(principal.getName());
 		try {
-			Tag existingTag = new Tag(null, user.getId(), note.getTags());
+			Tag tags = tagRepository.findFirstByUserIDAndName(user.getId(), note.getTags());
+			if (tags == null)
+			tags = new Tag(null, user.getId(), note.getTags());
 
 			Note newNote = new Note(note.isNew() ? null : note.getId(), note.getName(),
-					dateFormatter.parse(note.getDate()), user.getId(), existingTag, note.getDescription());
+					dateFormatter.parse(note.getDate()), user.getId(), tags, note.getDescription());
 			Note savedNote = noteRepository.save(newNote);
 			System.out.println(savedNote);
 
