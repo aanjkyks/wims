@@ -33,10 +33,11 @@ public class EditNotePageController {
 
 	@RequestMapping(value = "/edit/{noteId:[\\d]+}", method = RequestMethod.GET)
 	public String ModelAndView(@PathVariable int noteId,
-			@RequestParam(value = "error", required = false, defaultValue = "") String error, Model model) {
+			@RequestParam(value = "error", required = false, defaultValue = "") String error,Principal principal, Model model) {
+		User user = userRepository.findByUsername(principal.getName());
 		Optional<Note> noteOptional = noteRepository.findById(noteId);
 
-		if (noteOptional.isPresent()) {
+		if (noteOptional.isPresent() && noteOptional.get().getUserID().equals(user.getId())) {
 			Note note = noteOptional.get();
 			System.out.println(note);
 			EditNoteModel noteModel = new EditNoteModel(note.getId(), note.getDate(), note.getName(),
@@ -71,9 +72,7 @@ public class EditNotePageController {
 
 		User user = userRepository.findByUsername(principal.getName());
 		try {
-			Tag tags = tagRepository.findFirstByUserIDAndName(user.getId(), note.getTags());
-			if (tags == null)
-			tags = new Tag(null, user.getId(), note.getTags());
+			Tag tags = new Tag(null, user.getId(), note.getTags());
 
 			Note newNote = new Note(note.isNew() ? null : note.getId(), note.getName(),
 					dateFormatter.parse(note.getDate()), user.getId(), tags, note.getDescription());

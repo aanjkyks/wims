@@ -17,7 +17,7 @@ public class Note {
 	private Integer userID;
 	private String text;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "tagID")
 	private Tag tag;
 
