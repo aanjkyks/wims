@@ -43,6 +43,7 @@ public class MainPageController {
 		}
 
 		User user = userRepository.findByUsername(principal.getName());
+		if (user == null) return "redirect:/logout";
 		model.addAttribute("username", user.getUsername());
 		model.addAttribute("userId", user.getId());
 
