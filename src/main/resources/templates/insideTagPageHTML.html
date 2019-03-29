@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style type="text/css">
+body {
+	background: #ccdaea !important;
+}
+</style>
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<div th:replace="fragments/navbar :: navbar('')"></div>
+	<div class="container px-lg-5">
+		<br>
+		<div>
+			<a th:href="@{/add(tag=${tag.name})}"> +Add new note related to this tag </a>
+		</div>
+	</div>
+	<div class="px-lg-5">
+		<h1 th:text="${tag.name}" class="border border-primary" align="center"></h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<td><strong>Note date:</strong></td>
+					<td><strong>Note name:</strong></td>
+					<td><strong>Description:</strong></td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="note: ${notes}">
+					<td th:text="${#dates.format(note.date, 'yyyy-MM-dd')}"></td>
+					<td><a th:href="@{'/edit/'+ ${note.id}}"
+						th:text="${note.name}"></a></td>
+					<td th:text="${note.text}"></td>
+					<td><a class="delete-button"
+						th:href="@{/delete_note(noteId=${note.id})}"> <i
+							class="fas fa-trash-alt"></i>
+					</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>
